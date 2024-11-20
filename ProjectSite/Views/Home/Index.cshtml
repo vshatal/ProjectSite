@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ProjectSite.Models.Restaurant>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <div>Картинка</div>
+
+    <h1>Крутой сайт</h1>
+    
+    <div>Описание сервиса</div>
+
+    <h3>Рестораны</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Адрес
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.res_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.adress)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.id">Подробнее</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+

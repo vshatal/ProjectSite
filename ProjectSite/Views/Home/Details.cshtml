@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ProjectSite.Models.Review>
+
+@{
+    ViewData["Title"] = @ViewData["RestName"];
+}
+@functions{
+    double CalculateBall(int a, int b, int c, int d, int e, int f)
+    {
+        return Math.Round((double)(a + b + c + d + e + f) / 6, 1);
+    }
+}
+<div>
+    <a asp-action="Index">На главную</a>
+</div>
+<h1>@ViewData["RestName"]</h1>
+
+<div>
+    <h4>
+        Рейтинг
+    </h4>
+    <p>service_assessment - <a>@ViewData["service_assessment"]</a></p>
+    <p>evaluation_of_the_first_courses - <a>@ViewData["evaluation_of_the_first_courses"]</a></p>
+    <p>evaluation_of_the_second_courses - <a>@ViewData["evaluation_of_the_second_courses"]</a></p>
+    <p>evaluation_of_snacks - <a>@ViewData["evaluation_of_snacks"]</a></p>
+    <p>dessert_evaluation - <a>@ViewData["dessert_evaluation"]</a></p>
+    <p>assessment_of_the_atmosphere - <a>@ViewData["assessment_of_the_atmosphere"]</a></p>
+
+</div>
+<div>
+    <h4>
+        Отзывы
+    </h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Номер
+                </th>
+                <th>
+                    Оценка
+                </th>
+                <th>
+                    Отзыв
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @{
+                            double total_ball = CalculateBall(
+                            item.service_assessment,
+                            item.evaluation_of_the_first_courses,
+                            item.evaluation_of_the_second_courses,
+                            item.evaluation_of_snacks,
+                            item.dessert_evaluation,
+                            item.assessment_of_the_atmosphere
+                            );
+                        }
+                        @Html.DisplayFor(modelItem => total_ball)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.total_review)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>@ViewData["table_checker"]</p>
+</div>
+
